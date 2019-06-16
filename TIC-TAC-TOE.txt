@@ -1,0 +1,106 @@
+import sys
+print("=== Welcome to TIC-TAC-TOE===")
+print("-------------------------------")
+print("Player 1 Enter your Choice:")
+player_1= str(input()).upper()
+if((player_1=="X")or(player_1=="O")):
+    print("Player 1 your input is accepted... ")
+    print("Player 2 your input is automatically assigned...")
+    if(player_1=="X"):
+        player_2 =("O")
+    else:
+        player_2= ("X")
+ 
+print("Player 1 your choice is",player_1)
+print("Player 2 your choice is",player_2)
+board = [0,1,2,3,4,5,6,7,8,9]
+
+def dis_board(b):
+    print("   |    |   ")
+    print(b[7]," |",b[8]," |",b[9])
+    print("___|____|___")
+    print("   |    |   ")
+    print(b[4]," |",b[5]," |",b[6])
+    print("___|____|___")
+    print("   |    |   ")
+    print(b[1]," |",b[2]," |",b[3])
+    print("   |    |   ") 
+
+dis_board(board)
+
+def result(b,x):
+    
+        if(((b[7]==b[8]==b[9]=="X") or (b[4]==b[5]==b[6]=="X") or (b[1]==b[2]==b[3]=="X") or (b[7]==b[4]==b[1]=="X") or (b[8]==b[5]==b[2]=="X") or (b[9]==b[6]==b[3]=="X") or (b[1]==b[5]==b[9]=="X") or (b[3]==b[5]==b[7]=="X"))):
+            print("==========RESULT============")
+            print(" X is winner ")
+            try:
+                sys.exit()
+            finally:
+                print("Thanks for Playing...!")
+            
+            
+        if((b[7]==b[8]==b[9]=="O") or (b[4]==b[5]==b[6]=="O") or (b[1]==b[2]==b[3]=="O") or (b[7]==b[4]==b[1]=="O") or (b[8]==b[5]==b[2]=="O") or (b[9]==b[6]==b[3]=="O") or (b[1]==b[5]==b[9]=="O") or (b[3]==b[5]==b[7]=="O")):
+            print("==========RESULT============")
+            print("O is winner ")
+            try:
+                sys.exit()
+            finally:
+                print("Thanks for Playing...!")            
+        elif(x==9):
+            print("==========RESULT============")
+            print("DRAWN MATCH")
+            try:
+                sys.exit()
+            finally:
+                print("Thanks for Playing...!")
+            
+        else:
+            return 0            
+
+def assign_1(x):
+        x = x+1
+        print("%s STEP: "%(x))
+        print("Player 1 turn...")
+        print("Enter your Marker position...")
+        pos = int(input())
+        
+        if((pos>0)and(pos<10)):  
+            board[pos] = player_1
+            dis_board(board)
+            
+            if((x>=5) and (x<9)):
+                result(board,x)
+                assign_2(x)
+            elif(x<9):
+                assign_2(x)
+            else:
+                result(board,x)
+        else:
+            print("Wrong Position")
+            assign_1(x-1)
+
+def assign_2(x):
+        x = x+1
+        print("%s STEP: "%(x))
+        print("Player 2 turn...")
+        print("Enter your Marker position...")
+        pos = int(input())
+        if((pos>0)and(pos<10)): 
+            board[pos] = player_2
+            dis_board(board)
+            
+            if((x>5) and (x<10)):
+                result(board,x)
+                assign_1(x)
+            elif(x<10):
+                assign_1(x)
+            else:
+                result(board,x)
+        else:
+            print("Wrong Position")
+            assign_2(x-1)
+            
+globals()['x'] = 0
+assign_1(x)
+
+
